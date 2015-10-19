@@ -1,5 +1,14 @@
 version: '1.0.0-beta8-{build}'
 
+skip_tags: true
+
+branches:
+  only:
+    - master
+    - stable
+
+clone_depth: 1
+
 init:
   - git config --global core.autocrlf true
 
@@ -10,6 +19,9 @@ build_script:
   - powershell -NoProfile -ExecutionPolicy unrestricted "& ""./build.ps1"""
 
 test: off
+
+artifacts:
+  - path: 'build/*.nupkg'
 
 deploy:
   - provider: Environment
