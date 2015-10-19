@@ -8,6 +8,7 @@
 
   "frameworks": {
     "dnx451": { },
+    "dnx46": { },
     "dnxcore50": {
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-beta-23409",
