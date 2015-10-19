@@ -6,10 +6,6 @@ addons:
   apt:
     packages:
       - libunwind8
-      - gettext
-      - libssl-dev
-      - zlib1g
-      - libicu-dev
 
 install:
   - curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh && source ~/.dnx/dnvm/dnvm.sh
@@ -19,3 +15,5 @@ install:
 script:
   - dnvm use default
   - dnu --version
+  - dnu restore
+  - find ./src -maxdepth 1 -type d ! -path ./src -exec sh -c '(cd {} && dnu build)' ';'
