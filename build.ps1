@@ -1,13 +1,21 @@
-$dnvmInstalled = Get-Command dnvm -erroraction 'silentlycontinue'
-If (!$dnvmInstalled)
+function Exec
 {
-    "Installing DNVM..."
-    ""
-    &{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}
-    ""
+    # source: http://joshua.poehls.me/2012/powershell-script-module-boilerplate/
+
+    [CmdletBinding()]
+    param (
+        [Parameter(Position=0, Mandatory=1)]
+        [scriptblock]$Command,
+        [Parameter(Position=1, Mandatory=0)]
+        [string]$ErrorMessage = "Execution of command failed.`n$Command"
+    )
+    & $Command
+    if ($LastExitCode -ne 0) {
+        throw "Exec: $ErrorMessage"
+    }
 }
 
-Function GetRequiredVersion()
+function GetRequiredVersion()
 {    
     $captures = gc "global.json" | 
                 select-string -Pattern '"version"\s*:\s*"(?<version>[0-9a-zA-Z\-\.]+)"'
@@ -20,21 +28,30 @@ Function GetRequiredVersion()
     $captures.Matches[0].Groups["version"].Value
 }
 
+$dnvmInstalled = Get-Command dnvm -erroraction 'silentlycontinue'
+If (!$dnvmInstalled)
+{
+    "Installing DNVM..."
+    ""
+    &{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}
+    ""
+}
+
 $version = GetRequiredVersion;
 
 "Installing runtimes..."
 ""
-&dnvm install $version -r clr
-&dnvm install $version -r coreclr -alias default
-&dnvm use default
+Exec { dnvm install $version -r clr }
+Exec { dnvm install $version -r coreclr -alias default }
+Exec { dnvm use default }
 ""
 
 "Restoring packages..."
 ""
-&dnu restore
+Exec { dnu restore }
 ""
 
 "Building projects.."
 ""
-&dnu build ./src/* ./samples/*
+Exec { dnu build ./src/* ./samples/* }
 ""
