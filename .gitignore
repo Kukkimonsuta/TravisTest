@@ -1,2 +1,7 @@
 *.user
 *.lock.json
+
+/build
+/src/*/bin
+/test/*/bin
+/samples/*/bin

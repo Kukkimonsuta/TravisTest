@@ -1,4 +1,4 @@
-version: '1.0.{build}'
+version: '1.0.0-beta8-{build}'
 
 init:
   - git config --global core.autocrlf true
@@ -9,8 +9,14 @@ install:
 build_script:
   - powershell -NoProfile -ExecutionPolicy unrestricted "& ""./build.ps1"""
 
-clone_depth: 1
-
 test: off
 
-deploy: off
+deploy:
+  - provider: Environment
+    name: GitHub Releases (pre)
+    on:
+      branch: master
+  - provider: Environment
+    name: GitHub Releases (stable)
+    on:
+      branch: stable

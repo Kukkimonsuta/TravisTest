@@ -27,5 +27,11 @@ Exec { dnu restore }
 
 "Building projects.."
 ""
-Exec { dnu build ./src/* ./samples/* }
+Exec { dnu build ./src/* ./samples/* --configuration Release }
+""
+
+"Deploying.."
+""
+$env:DNX_BUILD_VERSION=$env:APPVEYOR_BUILD_NUMBER
+Exec { dnu pack ./src/* --out build --configuration Release }
 ""
