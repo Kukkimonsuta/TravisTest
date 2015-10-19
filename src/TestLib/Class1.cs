@@ -12,5 +12,8 @@ namespace TestLib
         public Class1()
         {
         }
+
+public void Hello()
+{}
     }
 }
