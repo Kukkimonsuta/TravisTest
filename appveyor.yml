@@ -4,7 +4,7 @@ init:
   - git config --global core.autocrlf true
 
 build_script:
-  - powershell -NoProfile -ExecutionPolicy unrestricted -File build.ps1
+  - powershell -NoProfile -ExecutionPolicy unrestricted "& ""./build.ps1"""
 
 clone_depth: 1
 
