@@ -9,7 +9,7 @@ addons:
 
 install:
   - chmod a+x ./install.sh ./build.sh
-  - ./install.sh
+  - source ./install.sh
 
 script:
-  - ./build.sh
+  - source ./build.sh
