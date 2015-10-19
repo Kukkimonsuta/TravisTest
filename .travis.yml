@@ -8,6 +8,7 @@ addons:
       - libunwind8
 
 install:
+  - chmod a+x ./install.sh ./build.sh
   - ./install.sh
 
 script:
