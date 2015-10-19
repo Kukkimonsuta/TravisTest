@@ -1,9 +1,9 @@
 language: bash
+sudo: required
+dist: trusty
 
 addons:
   apt:
-    sources:
-      - debian-sid
     packages:
       - libunwind8
       - gettext
