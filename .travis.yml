@@ -8,7 +8,6 @@ addons:
       - libunwind8
       - gettext
       - libssl-dev
-      - libcurl3-dev
       - zlib1g
       - libicu-dev
 
@@ -17,4 +16,4 @@ install:
   - dnvm install `grep -oP '(?<=")1.0.0[0-9a-zA-Z\.\-]*(?=")' global.json` -r coreclr
 
 script:
-  - dnu --version
+  - dnvm use default && dnu --version
