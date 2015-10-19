@@ -1,6 +1,6 @@
 language: csharp
 mono:
- - beta
+ - latest
 
 install:
 	curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh && source ~/.dnx/dnvm/dnvm.sh
@@ -8,4 +8,4 @@ install:
 	dnvm upgrade -r coreclr
 
 script:
-  cd projects/ZenSendTest && dnu restore && dnx . test
+	echo "script"
