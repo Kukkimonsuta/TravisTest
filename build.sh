@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 dnvm use default
 dnu restore
