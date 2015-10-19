@@ -15,34 +15,8 @@ function Exec
     }
 }
 
-function GetRequiredVersion()
-{    
-    $captures = gc "global.json" | 
-                select-string -Pattern '"version"\s*:\s*"(?<version>[0-9a-zA-Z\-\.]+)"'
-                 
-    If ($captures.Matches.Count -le 0)
-    {
-        Throw "Cannot resolve required version"
-    }
-
-    $captures.Matches[0].Groups["version"].Value
-}
-
-$dnvmInstalled = Get-Command dnvm -erroraction 'silentlycontinue'
-If (!$dnvmInstalled)
-{
-    "Installing DNVM..."
-    ""
-    &{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}
-    ""
-}
-
-$version = GetRequiredVersion;
-
-"Installing runtimes..."
+"Setting up environment..."
 ""
-Exec { dnvm install $version -r clr }
-Exec { dnvm install $version -r coreclr -alias default }
 Exec { dnvm use default }
 ""
 

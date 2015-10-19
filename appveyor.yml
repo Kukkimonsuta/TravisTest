@@ -3,6 +3,9 @@ version: '1.0.{build}'
 init:
   - git config --global core.autocrlf true
 
+install:
+  - powershell -NoProfile -ExecutionPolicy unrestricted "& ""./install.ps1"""
+
 build_script:
   - powershell -NoProfile -ExecutionPolicy unrestricted "& ""./build.ps1"""
 
