@@ -17,4 +17,5 @@ install:
   - dnvm list
 
 script:
-  - dnvm use default && dnu --version
+  - dnvm use default
+  - dnu --version
